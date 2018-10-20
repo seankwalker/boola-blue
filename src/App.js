@@ -1,15 +1,28 @@
-import React, { Component } from 'react';
+import React from 'react'
+import { render } from 'react-dom'
+import moment from 'moment'
 
-import {Heading, Pane} from 'evergreen-ui';
+import BigCalendar from 'react-big-calendar'
+// a localizer for BigCalendar
+BigCalendar.momentLocalizer(moment)
 
-class App extends Component {
-  render() {
+// this weird syntax is just a shorthand way of specifying loaders
+require('style-loader!css-loader!react-big-calendar/lib/css/react-big-calendar.css')
+
+class App extends React.Component {
+  constructor () {
+    super()
+  }
+  render () {
     return (
-      <div className="App">
-        {/* TODO */}
-      </div>
-    );
+      // React Components in JSX look like HTML tags
+      <BigCalendar
+        style={{height: '420px'}}
+        events={[]}
+      />
+    )
   }
 }
 
+render(<App />, document.getElementById('root'))
 export default App;
