@@ -1,12 +1,13 @@
 import request from 'superagent'
 
-const CALENDAR_ID = 'tb8ckdrm61bdsj6jfm7khob4u5@group.calendar.google.com'
-const API_KEY = 'AIzaSyAOuDzSlG24RPBn3OKVAyjW3OK_EJhCUbp'
-let url = `https://www.googleapis.com/calendar/v3/calendars/${CALENDAR_ID}/events?key=${API_KEY}`
+const calendarID = "yale.edu_el8ehm6an5qh56ovh9au9kqruc@group.calendar.google.com"
+const APIKey = "AIzaSyC82TYeG6yXixD1q4i_RTqDQC_JlfWJA8Q"
+let url = `https://www.googleapis.com/calendar/v3/calendars/${calendarID}/events`
 
 export function getEvents (callback) {
   request
     .get(url)
+    .set('API-Key', '59165c89d8cc05963285ea6f1024922201847e52')
     .end((err, resp) => {
       if (!err) {
         const events = []
