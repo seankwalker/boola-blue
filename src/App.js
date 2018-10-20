@@ -193,13 +193,22 @@ class App extends React.Component {
   }
   render () {
     return (
-      // React Components in JSX look like HTML tags
-      <BigCalendar
-        style={{height: '420px'}}
-        events={this.state.events}
-        localizer={localizer}
-      />
-    )
+      <div className="App">
+        <Pane className={styles.headerContent}>
+          <Heading className={styles.headerContent} size={900}>
+            Yale Residential College Calendar
+          </Heading>
+          <CollegeSelector className={styles.headerContent} />
+        </Pane>
+        <Pane id={styles.calendar}>
+        <BigCalendar
+          style={{height: '420px'}}
+          events={this.state.events}
+          localizer={localizer}
+        />
+        </Pane>
+      </div>
+    );
   }
 }
 
