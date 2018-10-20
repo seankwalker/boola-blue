@@ -7,3 +7,10 @@
     margin: 30px;
     text-align: center;
  }
+
+ :local(#calendar) {
+     max-width: 50%;
+     margin-left: 30px;
+     margin-right: 30px;
+     padding-right: 30px;
+ }
