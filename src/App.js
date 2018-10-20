@@ -2,6 +2,7 @@ import React from 'react'
 import { render } from 'react-dom'
 import ReactDOM from 'react-dom';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+import BigCalendar from 'react-big-calendar';
 import { GoogleAuthorize } from 'react-google-authorize';
 import moment from 'moment';
 import { getEvents } from './gcal'
@@ -14,7 +15,6 @@ require('css-loader')
 
 const localizer = BigCalendar.momentLocalizer(moment);
 
-//const API_KEY = '59165c89d8cc05963285ea6f1024922201847e52'
 const API_KEY = 'AIzaSyD6pL7YHpTTYSGcDNf85fb6EKQo7IvwYTQ'
 const calendarID = "yale.edu_el8ehm6an5qh56ovh9au9kqruc@group.calendar.google.com"
 
@@ -41,50 +41,7 @@ class App extends React.Component {
       events: []
     }
   }
-  /*loadClientWhenGapiReady = (script) => {
-    console.log('Trying To Load Client!');
-    console.log(script)
-    if(script.getAttribute('gapi_processed')){
-      console.log('Client is ready! Now you can access gapi. :)');
-      if(window.location.hostname==='localhost'){
-        script.onload = () => {
-          window.gapi.client.init({
 
-            'apiKey': API_KEY,
-            'clientId': CLIENT_ID,
-            'discoveryDocs': DISCOVERY_DOCS,
-            'scope': SCOPES
-            // clientId and scope are optional if auth is not required.
-            //'clientId': '106336438439334956700.apps.googleusercontent.com',
-          }).then(function() {
-            // 3. Initialize and make the API request.
-            window.gapi.auth2.getAuthInstance().signIn();
-
-            window.gapi.client.calendar.events.list({
-              'calendarId': 'primary',
-              'timeMin': (new Date()).toISOString(),
-              'showDeleted': false,
-              'singleEvents': true,
-              'maxResults': 10,
-              'orderBy': 'startTime'
-            }).then(function(response) {
-              console.log(response)
-            });
-
-
-          }).then(function(response) {
-            console.log(response.result);
-          }, function(reason) {
-            console.log('Error: ' + reason.result.error.message);
-          });
-        };
-      }
-    }
-    else{
-      console.log('Client wasn\'t ready, trying again in 100ms');
-      setTimeout(() => {this.loadClientWhenGapiReady(script)}, 100);
-    }
-  }*/
 
 
   loadCalApi() {
@@ -121,73 +78,10 @@ class App extends React.Component {
             )
           });
 
-          // response = window.gapi.auth2.getAuthInstance().signIn();
-          //   response.then(function(val){
-          //     window.gapi.client.calendar.events.list({
-          //     'calendarId': 'primary',
-          //     'timeMin': (new Date()).toISOString(),
-          //     'showDeleted': false,
-          //     'singleEvents': true,
-          //     'maxResults': 10,
-          //     'orderBy': 'startTime'
-          //   }).then(function(response) {
-          //     console.log(response)
-          //   });
-          // })
+
         })
 
-            //window.gapi.auth2.getAuthInstance().signIn().then(function(val){console.log(val)});
-
-            // window.gapi.client.load('youtube', 'v3', () => {
-            //   this.setState({ gapiReady: true });
-            // });
-
-          // }).then(function(){
-          //   window.gapi.auth2.getAuthInstance.signIn();
-          //   window.gapi.client.calendar.events.list({
-          //     'calendarId': 'primary',
-          //     'timeMin': (new Date()).toISOString(),
-          //     'showDeleted': false,
-          //     'singleEvents': true,
-          //     'maxResults': 10,
-          //     'orderBy': 'startTime'
-          //   }).then(function(response) {
-          //     console.log(response)
-          //   });
-          // });
     };
-      /*window.gapi.load('client', () => {
-        window.gapi.client.init(
-        'apiKey': API_KEY,
-        'clientId': CLIENT_ID,
-        'discoveryDocs': DISCOVERY_DOCS,
-        'scope': SCOPES)
-        // clientId and scope are optional if auth is not required.
-        //'clientId': '106336438439334956700.apps.googleusercontent.com',
-      }).then(function() {
-        // 3. Initialize and make the API request.
-        window.gapi.auth2.getAuthInstance().signIn();
-
-        window.gapi.client.calendar.events.list({
-          'calendarId': 'primary',
-          'timeMin': (new Date()).toISOString(),
-          'showDeleted': false,
-          'singleEvents': true,
-          'maxResults': 10,
-          'orderBy': 'startTime'
-        }).then(function(response) {
-          console.log(response)
-        });
-
-
-      }).then(function(response) {
-        console.log(response.result);
-      }, function(reason) {
-        console.log('Error: ' + reason.result.error.message);
-      });
-    };
-
-*/
 
     document.body.appendChild(script)
   }
@@ -204,7 +98,7 @@ class App extends React.Component {
           <CollegeSelector className={styles.headerContent} />
         </Pane>
         <Pane id={styles.calendar}>
-        <Calendar
+        <BigCalendar
           style={{height: '420px'}}
           events={this.state.events}
           localizer={localizer}
