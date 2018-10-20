@@ -4,6 +4,8 @@ const calendarID = "yale.edu_el8ehm6an5qh56ovh9au9kqruc@group.calendar.google.co
 const APIKey = "AIzaSyC82TYeG6yXixD1q4i_RTqDQC_JlfWJA8Q"
 let url = `https://www.googleapis.com/calendar/v3/calendars/${calendarID}/events`
 
+// const
+
 export function getEvents (callback) {
   request
     .get(url)
