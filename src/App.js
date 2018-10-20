@@ -1,7 +1,9 @@
 import React from 'react'
 import { render } from 'react-dom'
+import ReactDOM from 'react-dom';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import BigCalendar from 'react-big-calendar';
+import { GoogleAuthorize } from 'react-google-authorize';
 import moment from 'moment';
 import { getEvents } from './gcal'
 require('style-loader')
@@ -22,6 +24,10 @@ const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v
 const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 const CLIENT_ID = '891051467002-fkb8esjv6on51nvij8l462psg8p8566s.apps.googleusercontent.com'
 
+const responseGoogle = (response) => {
+  console.log(response);
+}
+
 
 class App extends React.Component {
   constructor () {
@@ -31,7 +37,7 @@ class App extends React.Component {
       events: []
     }
   }
-  loadClientWhenGapiReady = (script) => {
+  /*loadClientWhenGapiReady = (script) => {
     console.log('Trying To Load Client!');
     console.log(script)
     if(script.getAttribute('gapi_processed')){
@@ -74,18 +80,34 @@ class App extends React.Component {
       console.log('Client wasn\'t ready, trying again in 100ms');
       setTimeout(() => {this.loadClientWhenGapiReady(script)}, 100);
     }
-  }
+  }*/
+
+
   loadCalApi() {
     const script = document.createElement("script");
-    script.src = "https://apis.google.com/js/api.js";
-    
-    script.onload = () => {
-      window.gapi.client.init({
+    script.src = "https://apis.google.com/js/client.js";
 
+    script.onload = () => {
+          window.gapi.load('client', () => {
+            window.gapi.client.init(
+              'apiKey': API_KEY,
+              'clientId': CLIENT_ID,
+              'discoveryDocs': DISCOVERY_DOCS,
+              'scope': SCOPES)
+            window.gapi.auth2.init({ client_id: CLIENT_ID });
+            window.gapi.auth2.getAuthInstance().signIn();
+
+            window.gapi.client.load('youtube', 'v3', () => {
+              this.setState({ gapiReady: true });
+            });
+          });
+    };
+      /*window.gapi.load('client', () => {
+        window.gapi.client.init(
         'apiKey': API_KEY,
         'clientId': CLIENT_ID,
         'discoveryDocs': DISCOVERY_DOCS,
-        'scope': SCOPES
+        'scope': SCOPES)
         // clientId and scope are optional if auth is not required.
         //'clientId': '106336438439334956700.apps.googleusercontent.com',
       }).then(function() {
@@ -111,6 +133,8 @@ class App extends React.Component {
       });
     };
 
+*/
+
     document.body.appendChild(script)
   }
   componentDidMount () {
@@ -128,6 +152,7 @@ class App extends React.Component {
   }
 }
 
+render(<App />, document.getElementById('root'));
 
-render(<App />, document.getElementById('root'))
+
 export default App;
