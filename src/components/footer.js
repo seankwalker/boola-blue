@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Heading, Pane} from 'evergreen-ui';
 import './components.css'; 
 
-export default class Footer extends React.Component {
+export default class Footer extends Component {
   render() {
     return (
         <div className="App-footer"> 
