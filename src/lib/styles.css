@@ -1,0 +1,9 @@
+/*
+ * Defines app-wide styles.
+ */
+
+:local(.headerContent) {
+    align-items: center;
+    margin: 30px;
+    text-align: center;
+ }
