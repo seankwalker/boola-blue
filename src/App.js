@@ -2,10 +2,13 @@ import React from 'react'
 import { render } from 'react-dom'
 import ReactDOM from 'react-dom';
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import BigCalendar from 'react-big-calendar';
 import { GoogleAuthorize } from 'react-google-authorize';
 import moment from 'moment';
 import { getEvents } from './gcal'
+import {Heading, Pane} from "evergreen-ui";
+ import { CollegeSelector } from "./components/CollegeSelector";
+import { Calendar } from "./components/Calendar";
+ import styles from "./lib/styles.css"
 require('style-loader')
 require('css-loader')
 
@@ -201,7 +204,7 @@ class App extends React.Component {
           <CollegeSelector className={styles.headerContent} />
         </Pane>
         <Pane id={styles.calendar}>
-        <BigCalendar
+        <Calendar
           style={{height: '420px'}}
           events={this.state.events}
           localizer={localizer}

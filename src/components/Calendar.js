@@ -16,10 +16,12 @@ export class Calendar extends Component {
     render() {
         return (
             <BigCalendar
+              {/*
                 defaultView={"week"}
                 events={[/* TODO: import events */]}
                 localizer={localizer}
                 style={{height: "420px"}}
+              */}
             />
         );
     }
