@@ -5,7 +5,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import BigCalendar from 'react-big-calendar';
 import { GoogleAuthorize } from 'react-google-authorize';
 import moment from 'moment';
-import { getEvents } from './gcal'
+import { getCollegeEvents } from './gcal'
 import {Heading, Pane} from "evergreen-ui";
  import { CollegeSelector } from "./components/CollegeSelector";
 import { Calendar } from "./components/Calendar";
@@ -42,51 +42,10 @@ class App extends React.Component {
     }
   }
 
-
-
-  loadCalApi() {
-    const script = document.createElement("script");
-    //const {google} = require('googleapis');
-    script.src = "https://apis.google.com/js/client.js";
-
-    script.onload = () => {
-      window.gapi.load('client', () => {
-        window.gapi.client.init(
-          'apiKey': API_KEY,
-          'clientId': CLIENT_ID,
-          'discoveryDocs': DISCOVERY_DOCS,
-          'scope': SCOPES);
-
-          window.gapi.auth2.init({ client_id: CLIENT_ID, scope: SCOPES});
-
-          Promise.resolve(window.gapi.auth2.getAuthInstance().signIn()).then(()=>{
-            //const request = require("request");
-            const url = "https://www.googleapis.com/calendar/v3/calendars/"+calendarID+"/events";
-
-            // var ga = window.gapi.auth2.getAuthInstance();
-            // var cu = ga.currentUser.get();
-            // console.log("Scopes: " + cu.getGrantedScopes());
-
-            window.gapi.client.request({
-              'path':url
-            }).then(function(response) {
-              console.log(response.result);
-            }, function(reason){
-              console.log('Error: ' + reason.result.error.message);
-            }
-
-            )
-          });
-
-
-        })
-
-    };
-
-    document.body.appendChild(script)
-  }
   componentDidMount () {
-    console.log(this.loadCalApi());
+    //console.log(this.loadCalApi());
+    const calendarKeys = ["Benjamin Franklin", "Berkeley", "Branford", "Davenport", "Ezra Stiles", "Grace Hopper", "Jonathan Edwards", "Morse","Pauli Murray", "Pierson", "Saybrook", "Silliman", "Timothy Dwight", "Trumbull"]
+    getCollegeEvents(console.log, "Sat, 20 Oct 2018 01:10:43 GMT", "Mon, 22 Oct 2018 01:10:43 GMT", calendarKeys)
   }
   render () {
     return (
