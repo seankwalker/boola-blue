@@ -32,7 +32,7 @@ const CLIENT_ID = '891051467002-fkb8esjv6on51nvij8l462psg8p8566s.apps.googleuser
 
 
 
-function getEvents(callback, startDate, endDate, collegeNames){
+async function getEvents(callback, startDate, endDate, collegeNames){
   // console.log(collegeNames);
   //console.log("StartDate: "+startDate);
   //console.log("EndDate: "+endDate);
@@ -46,7 +46,7 @@ function getEvents(callback, startDate, endDate, collegeNames){
     var calID = calendarIDs[name];
     const url = "https://www.googleapis.com/calendar/v3/calendars/"+calID+"/events";
     //console.log(url)
-    window.gapi.client.request({
+    var response = await window.gapi.client.request({
       'path':url,
       // 'params':{
       //     'timeMin': startDate,
@@ -56,7 +56,8 @@ function getEvents(callback, startDate, endDate, collegeNames){
       'params':{
         'maxResults': 1000
       }
-    }).then((response) => {
+    })
+    //.then(async function(response) {
       //console.log(response)
       for (var idxx in response["result"]["items"]){
         //console.log("Parsing: " + name)
@@ -113,8 +114,8 @@ function getEvents(callback, startDate, endDate, collegeNames){
       }
       cals.push(calObj);
     }
-  )
-}
+  //)
+//}
   callback(cals);
 }
 
