@@ -13,8 +13,6 @@ import { Calendar } from "./components/Calendar";
 require('style-loader')
 require('css-loader')
 
-const localizer = BigCalendar.momentLocalizer(moment);
-
 const API_KEY = 'AIzaSyD6pL7YHpTTYSGcDNf85fb6EKQo7IvwYTQ'
 const calendarID = "yale.edu_el8ehm6an5qh56ovh9au9kqruc@group.calendar.google.com"
 
@@ -98,11 +96,7 @@ class App extends React.Component {
           <CollegeSelector className={styles.headerContent} />
         </Pane>
         <Pane id={styles.calendar}>
-        <BigCalendar
-          style={{height: '420px'}}
-          events={this.state.events}
-          localizer={localizer}
-        />
+          <Calendar />
         </Pane>
       </div>
     );
